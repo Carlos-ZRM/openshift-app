@@ -8,6 +8,7 @@ spec:
     - description: Name of a VM to execute the action in.
       name: vmName
       type: string
+      default: ""
     - description: Namespace of a VM to execute the action in. (defaults to active namespace)
       name: vmNamespace
       type: string
@@ -39,3 +40,12 @@ spec:
             value: execute-in-vm
           - name: namespace
             value: virtualization-pipelines
+      params:
+      - name: vmName
+        value: $(params.vmName)
+      - name: vmNamespace
+        value: $(params.vmNamespace)
+      - name: secretName
+        value: $(params.secretName)
+      - name: script
+        value: $(params.script)

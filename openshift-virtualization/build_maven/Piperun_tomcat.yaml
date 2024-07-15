@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: pipeline-tomcat
+spec:
+  pipelineRef:
+    name: install-tomcat
+  params:
+    - name: vmName
+      value: fedora-tomcat-xpk
+    - name: secretName
+      value: ssh-secret
+    - name: command
+      value:
+        - dnf
+    - name: args
+      value:
+        - 'install'
+        - 'tomcat'
+        - '-y'
