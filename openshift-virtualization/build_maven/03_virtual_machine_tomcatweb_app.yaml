@@ -84,7 +84,7 @@ spec:
       accessCredentials:
         - sshPublicKey:
             propagationMethod:
-              configDrive: {}
+              noCloud: {}
             source:
               secret:
                 secretName: authorized-keys 
