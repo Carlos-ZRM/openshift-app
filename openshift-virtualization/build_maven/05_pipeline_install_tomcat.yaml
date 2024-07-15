@@ -29,7 +29,7 @@ spec:
       type: string
       default: ""
   tasks:
-    - name: install_tomcat
+    - name: install-tomcat
       taskRef:
         resolver: cluster
         params:
