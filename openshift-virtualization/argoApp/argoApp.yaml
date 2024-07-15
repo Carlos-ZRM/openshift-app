@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argoapp-tomcat
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: tomcat-virt-app
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: openshift-virtualization/build_maven
+    repoURL: https://github.com/Carlos-ZRM/openshift-app.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
