@@ -4,7 +4,6 @@ metadata:
   annotations: {}
   labels:
     app: 'fedora-tomcat-xpk'
-  managedFields: {}
   name: 'fedora-tomcat-xpk'
   namespace: 'tomcat-virt-app'
 spec:
