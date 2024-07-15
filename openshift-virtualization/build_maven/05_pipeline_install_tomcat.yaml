@@ -19,11 +19,11 @@ spec:
     - description: Command to execute in a VM.
       name: command
       type: array
-      default: string
+      default: []
     - description: Arguments of a command.
       name: args
-      type: string
-      default: ""
+      type: array
+      default: []
     - description: Script to execute in a VM.
       name: script
       type: string
