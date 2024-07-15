@@ -76,11 +76,11 @@ spec:
           name: 'rootdisk'
         - cloudInitNoCloud:
             userData: |-
-              #cloud-config
-              user: fedora
-              password: fedora
-              chpasswd: { expire: False }
-            name: 'cloudinitdisk'
+            #cloud-config
+            user: fedora
+            password: fedora
+            chpasswd: { expire: False }
+          name: 'cloudinitdisk'
       # accessCredentials:
       #   - sshPublicKey:
       #       propagationMethod:
