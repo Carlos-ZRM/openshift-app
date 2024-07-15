@@ -81,10 +81,10 @@ spec:
               password: fedora
               chpasswd: { expire: False }
           name: 'cloudinitdisk'
-      # accessCredentials:
-      #   - sshPublicKey:
-      #       propagationMethod:
-      #         configDrive: {}
-      #       source:
-      #         secret:
-      #           secretName: authorized-keys 
+      accessCredentials:
+        - sshPublicKey:
+            propagationMethod:
+              configDrive: {}
+            source:
+              secret:
+                secretName: authorized-keys 
