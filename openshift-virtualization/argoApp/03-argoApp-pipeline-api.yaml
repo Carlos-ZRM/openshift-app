@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argoapp-app-python
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Carlos-ZRM/openshift-app.git
+    targetRevision: HEAD
+    path: openshift-virtualization/python_api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: python-virt-app
+  syncPolicy:
+    automated:
+      selfHeal: true
+  retry:
+    limit: 5
+    backoff:
+      duration: 5s
+      factor: 2
+      maxDuration: 3m

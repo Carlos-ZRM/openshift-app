@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argoapp-python
+  name: argoapp-config-vm-python
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: tomcat-virt-app
+    namespace: python-virt-app
     server: https://kubernetes.default.svc
   project: default
   source:
