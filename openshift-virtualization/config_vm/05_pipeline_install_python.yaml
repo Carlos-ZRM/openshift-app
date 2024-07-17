@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: install-python
-  namespace: tomcat-virt-app
 spec:
   params:
     - description: Name of a VM to execute the action in.

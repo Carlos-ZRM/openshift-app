@@ -3,21 +3,21 @@ kind: 'VirtualMachine'
 metadata:
   annotations: {}
   labels:
-    app: 'fedora-tomcat-xpk'
-  name: 'fedora-tomcat-xpk'
-  namespace: 'tomcat-virt-app'
+    app: 'fedora-python-xpk'
+  name: 'fedora-python-xpk'
+  namespace: 'python-virt-app'
 spec:
   dataVolumeTemplates:
     - apiVersion: 'cdi.kubevirt.io/v1beta1'
       kind: 'DataVolume'
       metadata:
         creationTimestamp: null
-        name: 'fedora-tomcat-xpk'
+        name: 'fedora-python-xpk'
       spec:
         source:
           pvc:
             name: 'fedora40-base'
-            namespace: 'tomcat-virt-app'
+            namespace: 'python-virt-app'
         storage:
           resources:
             requests:
@@ -31,7 +31,7 @@ spec:
         vm.kubevirt.io/workload: 'server'
       creationTimestamp: null
       labels:
-        kubevirt.io/domain: 'fedora-tomcat-xpk'
+        kubevirt.io/domain: 'fedora-python-xpk'
         kubevirt.io/size: 'small'
     spec:
       architecture: 'amd64'
@@ -72,7 +72,7 @@ spec:
       terminationGracePeriodSeconds: 180
       volumes:
         - dataVolume:
-            name: 'fedora-tomcat-xpk'
+            name: 'fedora-python-xpk'
           name: 'rootdisk'
         - cloudInitNoCloud:
             userData: |-
