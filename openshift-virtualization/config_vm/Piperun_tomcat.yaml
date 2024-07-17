@@ -10,11 +10,5 @@ spec:
       value: fedora-tomcat-xpk
     - name: secretName
       value: ssh-secret
-    - name: command
-      value:
-        - dnf
-    - name: args
-      value:
-        - 'install'
-        - 'tomcat'
-        - '-y'
+    - name: script
+      value: "sudo dnf install python3 python3-devel  python3-pip -y"
