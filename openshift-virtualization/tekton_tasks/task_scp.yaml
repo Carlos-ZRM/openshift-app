@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: task-scp
+spec:
+  params:
+    - default: ''
+      name: host
+      type: string
+    - default: ''
+      name: user
+      type: string
+    - default: '22'
+      name: port
+      type: string
+    - default: __empty__
+      name: ssh
+      type: string
+    - default: ''
+      name: dir_source
+      type: string
+    - default: /tmp/
+      name: dir_target
+      type: string
+  results:
+    - description: Salida del comando ejecutado
+      name: command_result
+      type: string
+  steps:
+    - computeResources: {}
+      image: 'image-registry.openshift-image-registry.svc:5000/python-virt-app/scp-task'
+      name: script
+      script: |
+        #!/bin/bash
+        mkdir /tmp/tar
+        cp /data/connectionsecret/ssh-privatekey /tmp/tar
+        chmod 0600 /tmp/tar/ssh-privatekey
+        tar -czf /tmp/tar/temp.tar.gz /workspace/source/
+        scp -i /tmp/tar/ssh-privatekey -o StrictHostKeyChecking=no  /tmp/tar/temp.tar.gz $(params.user)@$(params.host):$(params.dir_target)
+      volumeMounts:
+        - mountPath: /data/connectionsecret/
+          name: connectionsecret
+          readOnly: true
+  volumes:
+    - name: connectionsecret
+      secret:
+        optional: true
+        secretName: $(params.ssh)
+  workspaces:
+    - description: Workspace to source
+      name: source
+      optional: true
