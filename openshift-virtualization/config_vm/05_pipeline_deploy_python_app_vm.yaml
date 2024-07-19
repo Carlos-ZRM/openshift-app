@@ -94,7 +94,7 @@ spec:
         value: $(params.secretName)
       - name: script
         value: $(params.script)
-    - name: copy files to vm
+    - name: copy-to-vm
       params:
         - name: host
           value: $(params.host)
