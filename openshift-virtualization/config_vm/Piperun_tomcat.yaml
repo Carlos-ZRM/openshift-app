@@ -1,14 +1,32 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: pipeline-python
+  generateName: deploy-python-app-vm-
 spec:
   pipelineRef:
-    name: install-python
+    name: deploy-python-app-vm
+  workspaces:
+  - name: workspace-git
+    persistentVolumeClaim:
+      claimName: filesystem
   params:
+    - name: repo-url
+      value: https://github.com/Carlos-ZRM/openshift-app.git
     - name: vmName
       value: fedora-python-xpk
     - name: secretName
       value: ssh-secret
     - name: script
       value: "sudo dnf install python3 python3-devel  python3-pip -y"
+    - name: host
+      value: 10.128.2.98
+    - name: user
+      value: fedora
+    - name: port
+      value: "22"
+    - name: dir_source
+      value: ""
+    - name: dir_target
+      value: /tmp
+
+

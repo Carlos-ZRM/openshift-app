@@ -39,6 +39,21 @@ spec:
       name: script
       type: string
       default: ""
+    - default: ''
+      name: host
+      type: string
+    - default: 'root'
+      name: user
+      type: string
+    - default: '22'
+      name: port
+      type: string
+    - default: ''
+      name: dir_source
+      type: string
+    - default: /tmp/
+      name: dir_target
+      type: string
   tasks:
     - name: clone
       taskRef:
@@ -79,3 +94,23 @@ spec:
         value: $(params.secretName)
       - name: script
         value: $(params.script)
+    - name: copy files to vm
+      params:
+        - name: host
+          value: $(params.host)
+        - name: user
+          value: $(params.user)
+        - name: port
+          value: $(params.port)
+        - name: dir_source
+          value: $(params.dir_source)
+        - name: dir_target
+          value: $(params.dir_target)
+        - name: ssh
+          value: $(params.secretName)
+      taskRef:
+        kind: Task
+        name: task-scp
+      workspaces:
+        - name: source
+          workspace: workspace-git
