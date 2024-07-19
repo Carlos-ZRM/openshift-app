@@ -35,7 +35,7 @@ spec:
         mkdir /tmp/tar
         cp /data/connectionsecret/ssh-privatekey /tmp/tar
         chmod 0600 /tmp/tar/ssh-privatekey
-        tar -czf /tmp/tar/temp.tar.gz /workspace/source/
+        tar -czf /tmp/tar/temp.tar.gz /workspace/source/$(params.dir_source)
         scp -i /tmp/tar/ssh-privatekey -o StrictHostKeyChecking=no  /tmp/tar/temp.tar.gz $(params.user)@$(params.host):$(params.dir_target)
       volumeMounts:
         - mountPath: /data/connectionsecret/
