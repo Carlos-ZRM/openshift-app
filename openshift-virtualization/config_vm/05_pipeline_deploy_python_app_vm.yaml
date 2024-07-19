@@ -3,7 +3,18 @@ kind: Pipeline
 metadata:
   name: deploy-python-app-vm
 spec:
+  workspaces:
+  - name: workspace-git
+    description: | 
+      Workspace para clonar el proyecto
   params:
+    - name: repo-url
+      type: string
+      description: The git repo URL to clone from.  
+    - name: revision
+      type: string
+      description: Git branch
+      default: main
     - description: Name of a VM to execute the action in.
       name: vmName
       type: string
@@ -29,6 +40,24 @@ spec:
       type: string
       default: ""
   tasks:
+    - name: clone
+      taskRef:
+        resolver: hub
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: git-clone
+          - name: version
+            value: "0.9"
+      workspaces:
+      - name: output
+        workspace: workspace-git
+      params:
+      - name: url
+        value: $(params.repo-url)
+      - name: revision
+        value: $(params.revision)
     - name: install-python
       taskRef:
         resolver: cluster
