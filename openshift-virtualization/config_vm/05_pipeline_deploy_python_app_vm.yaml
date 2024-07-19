@@ -59,6 +59,8 @@ spec:
       - name: revision
         value: $(params.revision)
     - name: install-python
+      runAfter:
+        - clone
       taskRef:
         resolver: cluster
         params:
