@@ -108,9 +108,17 @@ spec:
           value: $(params.dir_target)
         - name: ssh
           value: $(params.secretName)
+      runAfter:
+        - install-python
       taskRef:
-        kind: Task
-        name: task-scp
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: task-scp
+          - name: namespace
+            value: virtualization-pipelines
       workspaces:
         - name: source
           workspace: workspace-git
