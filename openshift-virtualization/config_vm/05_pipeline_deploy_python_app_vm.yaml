@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: install-python
+  name: deploy-python-app-vm
 spec:
   params:
     - description: Name of a VM to execute the action in.
