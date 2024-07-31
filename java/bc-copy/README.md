@@ -32,5 +32,5 @@ oc new-app image-registry.openshift-image-registry.svc:5000/java/copy
 oc expose service/copy
 oc get route
 
-curl http://copy-java.apps.shrocp4upi414ovn.lab.upshift.rdu2.redhat.com/sample/
+curl http://copy-java.apps.shrocp4upi414ovn.lab.upshift.rdu2.redhat.com
 ~~~
