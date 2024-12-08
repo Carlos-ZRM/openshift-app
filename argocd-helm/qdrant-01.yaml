@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: qdrant
+  namespace: user1-argocd
+spec:
+  project: default
+  source:
+    chart: qdrant
+    repoURL: https://qdrant.to/helm  # note: the oci:// syntax is not included.
+    targetRevision: 1.11.3
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: qdrant
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
