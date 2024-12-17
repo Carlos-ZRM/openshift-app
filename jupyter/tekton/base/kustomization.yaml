@@ -18,7 +18,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/storageClassName
-        value: ocs-storagecluster-cephfs
+        value: azurefile-csi
     target:
       kind: PersistentVolumeClaim
       name: pvc-git-api

@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: pipeline-ci-api-
+spec:
+  pipelineRef:
+    name: pipeline-ci-api
+  workspaces:
+  - name: workspace-git
+    persistentVolumeClaim:
+      claimName: pvc-git-api
+  params:
+  - name: repo-url
+    value: https://github.com/Carlos-ZRM/openshift-app.git
+  - name: img-registry
+    value: image-registry.openshift-image-registry.svc:5000/notapipe/api:latest
+  - name: img-context
+    value: python/openapi
+  - name: img-dockerfile
+    value: Containerfile

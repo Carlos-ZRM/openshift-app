@@ -18,3 +18,5 @@ spec:
     value: python/openapi
   - name: img-dockerfile
     value: Containerfile
+  - name: revision
+    value: main

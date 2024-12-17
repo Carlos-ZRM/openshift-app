@@ -10,11 +10,18 @@ oc project java
 ## Crear build config
 ~~~ bash
 oc new-build --name api --binary --strategy docker
+
+oc new-build --name bc-front --binary --strategy docker
+
 ~~~
 
 ## Ejecutar build
 ~~~ bash
 oc start-build api --from-dir .  --follow
+
+oc start-build bc-front --from-dir .  --follow
+
+
 oc logs -f bc/api
 ~~~
 

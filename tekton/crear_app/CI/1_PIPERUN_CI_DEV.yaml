@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: pipelinerun-ci-
+  namespace: tkn-pipelines
+spec:
+  pipelineRef:
+    name: pipeline-ci
+  workspaces:
+  - name: workspace-git
+    #emptyDir: {}
+    persistentVolumeClaim:
+      claimName: tekton-ci
+    # volumeClaimTemplate:
+    #     spec:
+    #       accessModes:
+    #         - ReadWriteOnce # access mode may affect how you can use this volume in parallel tasks
+    #       resources:
+    #         requests:
+    #           storage: 1Gi
+    #       storageClassName: "managed-csi"
+    #       volumeMode: Filesystem
+    
+  params:
+  - name: repo-url
+    value: https://github.com/Carlos-ZRM/3scale_poc.git
+  - name: revision
+    value: python-api-img
+  - name: img-registry
+    value: tekton-demo:api-dev
+  - name: img-context
+    value: apiPythonImg
+

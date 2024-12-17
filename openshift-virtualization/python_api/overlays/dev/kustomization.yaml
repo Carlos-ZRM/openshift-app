@@ -1,0 +1,54 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base
+#nameSuffix: -dev
+namespace: api-dev
+commonLabels:
+  oper_env: dev
+patches:
+  - path: deployment.yaml
+    target:
+      kind: Deployment
+      labelSelector: "app=apiimg"
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 5
+      - op: add
+        path: /spec/revisionHistoryLimit
+        value: 2
+      - op: replace
+        path: /spec/template/spec/containers/0/ports/0/containerPort
+        value: 5000
+      - op: replace
+        path: /spec/template/spec/containers/0/ports/0/name
+        value: apiimg-5000
+    target:
+      kind: Deployment
+      labelSelector: "app=apiimg"
+  - patch: |-
+      - op: replace
+        path: /spec/ports/0/name
+        value: apiimg-5000
+      - op: replace
+        path: /spec/ports/0/port
+        value: 5000
+      - op: replace
+        path: /spec/ports/0/targetPort
+        value: apiimg-5000
+    target:
+      kind: Service
+      labelSelector: "app=apiimg"
+  - patch: |-
+      - op: replace
+        path: /spec/port/targetPort
+        value: apiimg-5000
+    target:
+      kind: Route
+      labelSelector: "app=apiimg"
+images:
+- name: quay.io/rhdevelopers/bgd:default
+  newTag: latest
+- name: quay.io/rhdevelopers/bgd:latest
+  newName: image-registry.openshift-image-registry.svc:5000/api-dev/api

@@ -82,8 +82,8 @@ resource "kubernetes_manifest" "route" {
       "targetPort" = "http-port"
     }
     "tls" = {
-      "termination" = "edge"
-      #"insecureEdgeTerminationPolicy" = "Redirect"
+      #"termination" = "edge"
+      "insecureEdgeTerminationPolicy" = "Redirect"
     }
     "to" = {
       "kind" = "Service"

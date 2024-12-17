@@ -1,0 +1,47 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: api-dev
+resources:
+- 01-PVC.yaml
+- 02-Pipeline-api.yaml
+- 03-CRB-Pipe-privileged.yaml
+- 04-imagestream.yaml
+- 05-Triggertemplate.yaml
+- 06-Triggerbinding.yaml
+- 07-Eventlistener.yaml
+- 08-Rutatrigger.yaml
+
+commonLabels:
+  pipeline: build-api
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/storageClassName
+        value: gp3-csi
+    target:
+      kind: PersistentVolumeClaim
+      name: pvc-git-api
+  - patch: |-
+      - op: replace
+        path: /subjects/0/namespace
+        value: api-dev
+    target:
+      kind: ClusterRoleBinding
+      name: pipeline-privileged
+  - patch: |-
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/params/0/value
+        value: https://github.com/Carlos-ZRM/openshift-app.git
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/params/1/value
+        value: image-registry.openshift-image-registry.svc:5000/api-dev/api:latest
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/params/2/value
+        value: python/openapi
+      - op: replace
+        path: /spec/resourcetemplates/0/spec/params/3/value
+        value: Containerfile
+    target:
+      kind: TriggerTemplate
+      name: triggertemplate-api

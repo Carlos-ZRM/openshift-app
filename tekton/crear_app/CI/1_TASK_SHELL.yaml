@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: shell
+spec:
+  workspaces:
+    - name: source
+      optional: true
+      description: Workspaces
+  steps:
+    - name: shell
+      image: docker.io/alpine:latest
+      script: |
+        #!/bin/sh
+        ls -R /workspace/

@@ -1,0 +1,88 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline-ci
+  namespace: tkn-pipelines
+spec:
+  #
+  description: | 
+    Pipeline CI que hace el git clone y compila la imagen
+  params:
+  - name: repo-url
+    type: string
+    description: The git repo URL to clone from.  
+  - name: revision
+    type: string
+    description: Git branch
+  - name: img-registry
+    type: string
+    description: Refgistry fqdn
+  - name: img-context
+    type: string
+    description: apiPythonImg/ 
+  workspaces:
+  - name: workspace-git
+    description: | 
+      Workspace para clonar el proyecto
+  # - name: dockerconfig-ws
+  #   description: | 
+  #     Workspace para el archivo dockerconfigjson
+  tasks:
+  # Task Git clone que recibe los parametros de url y revision ( branch )
+  - name: clone
+    taskRef:
+      resolver: hub
+      params:
+        - name: kind
+          value: task
+        - name: name
+          value: git-clone
+        - name: version
+          value: "0.9"
+    workspaces:
+    - name: output
+      workspace: workspace-git
+    params:
+    - name: url
+      value: $(params.repo-url)
+    - name: revision
+      value: $(params.revision)
+  
+  - name: shell
+    taskRef:
+      resolver: cluster
+      params:
+        - name: kind
+          value: task
+        - name: name
+          value: task-shell-demo
+        - name: namespace
+          value: tkn-task
+    runAfter:
+      - clone
+    workspaces:
+    - name: source
+      workspace: workspace-git
+    
+  # - name: buildah-bud
+  #   taskRef:
+  #     resolver: hub
+  #     params:
+  #       - name: kind
+  #         value: task
+  #       - name: name
+  #         value: buildah
+  #       - name: version
+  #         value: "0.7"
+  #   runAfter:
+  #     - shell
+  #   workspaces:
+  #   - name: source
+  #     workspace: workspace-git
+  #   # - name: dockerconfig
+  #   #   workspace: dockerconfig-ws
+  #   params:
+  #   - name: IMAGE
+  #     value: $(params.img-registry)
+  #   - name: CONTEXT
+  #     value: $(params.img-context)

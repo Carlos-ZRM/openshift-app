@@ -1,0 +1,5 @@
+FROM registry.access.redhat.com/ubi9:9.4-1123.1719560047
+
+RUN yum install openssh-clients -y
+
+CMD while true; do sleep 10000; done
