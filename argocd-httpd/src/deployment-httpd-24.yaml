@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: httpd-24
-          image: 'image-registry.openshift-image-registry.svc:5000/xpk/httpd-24@sha256:a0edcb66c740659f3a81b540429fd43b1da9ba18626bc21b99c256e7ad3436b0'
+          image: registry.redhat.io/ubi9/httpd-24
           ports:
             - containerPort: 8080
               protocol: TCP
