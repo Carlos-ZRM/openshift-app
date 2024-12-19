@@ -1,7 +1,7 @@
 ﻿kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: httpd-24-cert
+  name: httpd-24
   labels:
     app: httpd-24
     app.kubernetes.io/component: httpd-24
@@ -15,5 +15,7 @@ spec:
     name: httpd-24
     weight: 100
   port:
-    targetPort: 8443-tcp
-    wildcardPolicy: None
+    targetPort: 8080-tcp
+  tls:
+    termination: passthrough
+  wildcardPolicy: None
