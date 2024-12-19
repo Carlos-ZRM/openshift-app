@@ -1,6 +1,7 @@
 ﻿kind: Deployment
 apiVersion: apps/v1
-metadata:    
+metadata:
+  name: httpd-24    
   labels:
     app: httpd-24
     app.kubernetes.io/component: httpd-24
