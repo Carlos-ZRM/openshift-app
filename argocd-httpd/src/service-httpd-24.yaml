@@ -1,0 +1,25 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: httpd-24
+  labels:
+    app: httpd-24
+    app.kubernetes.io/component: httpd-24
+    app.kubernetes.io/instance: httpd-24
+    app.kubernetes.io/name: httpd-24
+    app.kubernetes.io/part-of: httpd-24-app
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: 8443-tcp
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    app: httpd-24
+    deployment: httpd-24
