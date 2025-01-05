@@ -1,0 +1,10 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore-example-httpd
+  namespace: openshift-adp
+spec:
+  backupName: backup-example-httpd
+  restorePVs: true
+  namespaceMapping:
+    httpd-app-argocd: httpd-app-argocd-restore
