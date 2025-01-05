@@ -1,0 +1,15 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-example-httpd
+  labels:
+    velero.io/storage-location: default
+  namespace: openshift-adp
+spec:
+  hooks: {}
+  includedNamespaces:
+  - httpd-app-argocd
+  includedResources: [] 
+  excludedResources: [] 
+  storageLocation: velero
+  ttl: 720h0m0s
