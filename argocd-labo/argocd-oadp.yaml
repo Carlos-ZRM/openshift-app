@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: configure-oadp
+  namespace: openshift-gitops
+spec:
+  project: default
+  sources:
+    - repoURL: 'https://github.com/Carlos-ZRM/openshift-app.git'
+      path: argocd-labo/operador/oadp
+      targetRevision: main
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: openshift-adp
+  syncPolicy: {}
