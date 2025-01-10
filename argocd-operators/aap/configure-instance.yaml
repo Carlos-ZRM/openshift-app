@@ -1,0 +1,26 @@
+apiVersion: aap.ansible.com/v1alpha1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap
+  namespace: ansible-automation-platform
+spec:
+  controller:
+    disabled: false
+  eda:
+    disabled: false
+  hub:
+    disabled: false
+  lightspeed:
+    disabled: false
+  route_tls_termination_mechanism: Edge
+  no_log: false
+  redis_mode: standalone
+  api:
+    log_level: INFO
+    replicas: 1
+  database:
+    postgres_data_volume_init: false
+  service_type: NodePort
+  ingress_type: Route
+  image_pull_policy: IfNotPresent
+  admin_password_secret: aap-admin-password
