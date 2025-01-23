@@ -17,13 +17,6 @@ commonLabels:
 patches:
   - patch: |-
       - op: replace
-        path: /spec/storageClassName
-        value: azurefile-csi
-    target:
-      kind: PersistentVolumeClaim
-      name: pvc-git-api
-  - patch: |-
-      - op: replace
         path: /subjects/0/namespace
         value: api-dev
     target:
@@ -35,7 +28,7 @@ patches:
         value: https://github.com/Carlos-ZRM/openshift-app.git
       - op: replace
         path: /spec/resourcetemplates/0/spec/params/1/value
-        value: image-registry.openshift-image-registry.svc:5000/api-dev/api:latest
+        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(context.pipelineRun.name)
       - op: replace
         path: /spec/resourcetemplates/0/spec/params/2/value
         value: python/openapi
