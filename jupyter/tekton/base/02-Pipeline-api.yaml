@@ -33,18 +33,18 @@ spec:
   tasks:
   # Task Git clone que recibe los parametros de url y revision ( branch )
   - name: clone
-    taskRef:
-      kind: ClusterTask
-      name: git-clone
     # taskRef:
-    #   resolver: hub
-    #   params:
-    #     - name: kind
-    #       value: task
-    #     - name: name
-    #       value: git-clone
-    #     - name: version
-    #       value: "0.9"
+    #   kind: ClusterTask
+    #   name: git-clone
+    taskRef:
+      resolver: hub
+      params:
+        - name: kind
+          value: task
+        - name: name
+          value: git-clone
+        - name: version
+          value: "0.9"
     workspaces:
     - name: output
       workspace: workspace-git
