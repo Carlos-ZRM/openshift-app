@@ -6,7 +6,7 @@ spec:
   storageClassName: ocs-storagecluster-ceph-rbd
   resources:
     requests:
-      storage: 25Gi
+      storage: 5Gi
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
