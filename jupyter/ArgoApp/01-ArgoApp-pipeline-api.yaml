@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Carlos-ZRM/openshift-app.git
     targetRevision: HEAD
-    path: jupyter/tekton/overlays/dev
+    path: jupyter/tekton/overlays/aws
   destination:
     server: https://kubernetes.default.svc
     namespace: api-dev
