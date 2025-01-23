@@ -13,7 +13,7 @@ spec:
   - name: repo-url
     value: https://github.com/Carlos-ZRM/openshift-app.git
   - name: img-registry
-    value: image-registry.openshift-image-registry.svc:5000/notapipe/api:latest
+    value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/api:latest
   - name: img-context
     value: python/openapi
   - name: img-dockerfile

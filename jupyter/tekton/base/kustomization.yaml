@@ -28,7 +28,7 @@ patches:
         value: https://github.com/Carlos-ZRM/openshift-app.git
       - op: replace
         path: /spec/resourcetemplates/0/spec/params/1/value
-        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(context.pipelineRun.name)
+        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/api:latest
       - op: replace
         path: /spec/resourcetemplates/0/spec/params/2/value
         value: python/openapi
