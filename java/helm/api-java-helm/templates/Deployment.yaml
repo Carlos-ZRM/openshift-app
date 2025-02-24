@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}-app
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -27,7 +27,7 @@ spec:
           # - Each init container must complete successfully before the next one starts.
       containers:
       - name:  {{ .Release.Name }}-app
-        image:  registry.redhat.io/jboss-webserver-5/jws58-openjdk17-openshift-rhel8
+        image:  {{ .Values.image.repository }}:{{ .Values.image.tag }}
         resources:
           requests:
             cpu: 100m
