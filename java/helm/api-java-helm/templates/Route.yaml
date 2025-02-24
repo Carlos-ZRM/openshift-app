@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: {{ .Release.Name }}-app
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+  name: {{ .Release.Name }}-app-route
+spec:
+  port:
+    targetPort: {{ .Release.Name }}-app-8080
+  to:
+    kind: Service
+    name: {{ .Release.Name }}-app-svc
+    weight: 100
+  tls:
+    termination: edge
+  wildcardPolicy: None
