@@ -1,3 +1,7 @@
 
-sourceSecretName: mongodb-server-mongodb-user
-mongoHostname: "mongodb-server-mongodb-community-server.test.svc.cluster.local"
+sourceSecretName: helmapi-mongodb-user
+mongoHostname: "helmapi-mongodb-community-server.multihelm.svc.cluster.local"
+image:
+  repository: quay.io/rh-ee-creyesma/api-java
+  pullPolicy: IfNotPresent
+  tag: latest
