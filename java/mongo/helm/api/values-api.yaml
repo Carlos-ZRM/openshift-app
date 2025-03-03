@@ -1,3 +1,3 @@
 
-sourceSecretName: "mongodb-mongodb-user"
-mongoHostname: "mongodb-mongodb-community-server.tracing.svc.cluster.local"
+sourceSecretName: mongodb-server-mongodb-user
+mongoHostname: "mongodb-server-mongodb-community-server.test.svc.cluster.local"
