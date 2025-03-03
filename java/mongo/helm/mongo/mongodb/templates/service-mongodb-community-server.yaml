@@ -1,0 +1,22 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-mongodb-community-server
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}-mongodb-community-server
+    app.kubernetes.io/component: {{ .Release.Name }}-mongodb-community-server
+    app.kubernetes.io/instance: {{ .Release.Name }}-mongodb-community-server
+    app.kubernetes.io/name: {{ .Release.Name }}-mongodb-community-server
+    app.kubernetes.io/part-of: {{ .Release.Name }}-app
+    app.openshift.io/runtime-version: 5.0.9-ubi8
+spec:
+  ports:
+    - name: 27017-tcp
+      protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: 27017
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ .Release.Name }}-mongodb-community-server
+    deployment: {{ .Release.Name }}-mongodb-community-server

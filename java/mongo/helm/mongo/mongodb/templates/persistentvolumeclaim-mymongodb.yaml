@@ -1,0 +1,12 @@
+﻿kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.mongodbVolumeClaim.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes: {{ .Values.mongodbVolumeClaim.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.mongodbVolumeClaim.size | quote }}
+  storageClassName: {{ .Values.mongodbVolumeClaim.storageClass | quote }}
+  volumeMode: {{ .Values.mongodbVolumeClaim.volumeMode | quote }}

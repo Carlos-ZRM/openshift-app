@@ -1,0 +1,13 @@
+mongodbUsername: mongodb-user
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+mongodbVolumeClaim:
+  accessModes:
+    - ReadWriteOnce
+  storageClass: "ocs-external-storagecluster-ceph-rbd"
+  size: 8Gi
+  name: mongodb-pvc
