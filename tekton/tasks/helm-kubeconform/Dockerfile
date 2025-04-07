@@ -15,6 +15,7 @@ RUN curl -O https://get.helm.sh/helm-v3.17.2-linux-amd64.tar.gz && \
 # Install kubeconform Go module
 RUN go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
 
+RUN chown -R 1001:0 /opt/app-root/
 
 USER 1001
 

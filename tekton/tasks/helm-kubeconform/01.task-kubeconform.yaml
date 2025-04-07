@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: task-shell
+  name: task-kubeconform
 spec:
   params:
     - name: helm_directory
@@ -13,14 +13,14 @@ spec:
       description: Salida del comando ejecutado
   workspaces:
     - name: source
-      optional: true
+      optional: false
       description: Workspace del task
   steps:
     - name: shell
-      image: registry.access.redhat.com/ubi9:9.3-1610
+      image: image-registry.openshift-image-registry.svc:5000/xpk/kubeconform:latest
       script: |
         #!/bin/bash
-        helm template $(params.helm_template > template.yaml
+        helm template $(params.helm_directory) > template.yaml
         kubeconform -strict \
           -schema-location default \
           -schema-location https://raw.githubusercontent.com/garethr/openshift-json-schema/master \
