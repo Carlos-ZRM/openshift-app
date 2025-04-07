@@ -1,3 +1,4 @@
+.gitlab_config
 # Local .terraform directories
 **/.terraform/*
 

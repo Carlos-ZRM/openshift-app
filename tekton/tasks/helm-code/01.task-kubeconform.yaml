@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-shell
+spec:
+  params:
+    - name: helm_directory
+      description: Directory where the Helm chart is located
+      type: string
+      default: "."
+  results:
+    - name: command_result
+      description: Salida del comando ejecutado
+  workspaces:
+    - name: source
+      optional: true
+      description: Workspace del task
+  steps:
+    - name: shell
+      image: registry.access.redhat.com/ubi9:9.3-1610
+      script: |
+        #!/bin/bash
+        helm template $(params.helm_template > template.yaml
+        kubeconform -strict \
+          -schema-location default \
+          -schema-location https://raw.githubusercontent.com/garethr/openshift-json-schema/master \
+          -summary template.yaml | tee "$(results.command_result.path)"
