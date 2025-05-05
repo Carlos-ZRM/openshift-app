@@ -1,0 +1,123 @@
+---
+# Source: api-java-helm/templates/Secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-basic-auth
+type: Opaque
+data:
+  username: YWRtaW4=
+  password:
+              QWVna1lyRlJveDRxOGNHMw==
+---
+# Source: api-java-helm/templates/Service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: release-name-app-svc
+  labels:
+    app: release-name-app
+    chart: api-java-helm-0.1.0
+    release: release-name
+spec:
+  selector:
+    app: release-name-app
+  type: ClusterIP
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: release-name-app-8080
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+# Source: api-java-helm/templates/service-api-usuario-con-error.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: release-name-error
+  namespace: kcd-gdl-2025
+  labels:
+    app: release-name-app
+    chart: api-java-helm-0.1.0
+    release: release-name
+  spec:
+    ipFamilies:
+      - IPv4
+    ports:
+      - name: 3001-tcp
+        protocol: TCP
+        port: 3001
+        targetPort: 3001
+    internalTrafficPolicy: Cluster
+    type: ClusterIP
+    ipFamilyPolicy: SingleStack
+    sessionAffinity: None
+    selector:
+      app: api-usuario
+      deployment: api-usuario
+---
+# Source: api-java-helm/templates/Deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  release-name-app
+  labels:
+    app: release-name-app
+    chart: api-java-helm-0.1.0
+    release: release-name
+spec:
+  selector:
+    matchLabels:
+      app: release-name-app
+  replicas: 4
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  release-name-app
+    spec:
+      # initContainers:
+        # Init containers are exactly like regular containers, except:
+          # - Init containers always run to completion.
+          # - Each init container must complete successfully before the next one starts.
+      containers:
+      - name:  release-name-app
+        image:  registry.redhat.io/jboss-webserver-5/jws58-openjdk17-openshift-rhel8:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort:  8080
+          name:  release-name-app-8080
+      restartPolicy: Always
+---
+# Source: api-java-helm/templates/Route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: release-name-app
+    chart: api-java-helm-0.1.0
+    release: release-name
+  name: release-name-app-route
+spec:
+  port:
+    targetPort: release-name-app-8080
+  to:
+    kind: Service
+    name: release-name-app-svc
+    weight: 100
+  tls:
+    termination: edge
+  wildcardPolicy: None
