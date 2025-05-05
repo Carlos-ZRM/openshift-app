@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: apiimg
+  name: api
 spec:
   selector:
     app: default
@@ -11,7 +11,7 @@ spec:
     clientIP:
       timeoutSeconds: 10800
   ports:
-  - name: apiimg-8080
+  - name: api-8080
     protocol: TCP
     port: 8080
-    targetPort: apiimg-8080
+    targetPort: api-8080

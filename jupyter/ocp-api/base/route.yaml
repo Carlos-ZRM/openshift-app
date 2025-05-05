@@ -1,7 +1,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: apiimg
+  name: api
   annotations:
     outer.openshift.io/cookie_name: "myc"
     haproxy.router.openshift.io/pod-concurrent-connections: "1"
@@ -9,10 +9,10 @@ metadata:
 spec:
   to:
     kind: Service
-    name: apiimg
+    name: api
     weight: 100
   port:
-    targetPort: apiimg-8080
+    targetPort: api-8080
   tls:
     termination: edge
   wildcardPolicy: None

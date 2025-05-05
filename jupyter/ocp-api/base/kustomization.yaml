@@ -6,15 +6,15 @@ resources:
 - service.yaml
 - route.yaml
 
-# secretGenerator:
-# - name: quay-secret
-#   files:
-#   - .dockerconfigjson=dockerconfigjson
-#   type: "kubernetes.io/dockerconfigjson"
+secretGenerator:
+- name: quay-secret
+  files:
+   - .dockerconfigjson=dockerconfigjson
+  type: "kubernetes.io/dockerconfigjson"
 
 
 commonLabels:
-  app: apiimg
+  app: api-default
 
-#namePrefix: apiimg-
+#namePrefix: api-
 #nameSuffix: -default

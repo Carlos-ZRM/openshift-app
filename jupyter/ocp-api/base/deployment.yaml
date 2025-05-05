@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  apiimg
+  name:  api
 spec:
   selector:
     matchLabels:
@@ -22,11 +22,12 @@ spec:
           # - Init containers always run to completion.
           # - Each init container must complete successfully before the next one starts.
       containers:
-      - name:  apiimg
-        image:  quay.io/rhdevelopers/bgd:default
+      - name:  api
+        image:  api:default
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
-          name:  apiimg-8080
+          name:  api-8080
         securityContext:
           allowPrivilegeEscalation: false
           runAsNonRoot: true
