@@ -25,11 +25,12 @@ spec:
     description: Nombre del archivo Dockerfile 
   workspaces:
   - name: workspace-git
-    description: | 
+    description: |
       Workspace para clonar el proyecto
-  # - name: dockerconfig-ws
-  #   description: | 
-  #     Workspace para el archivo dockerconfigjson
+  - name: dockerconfig-ws
+    description: |
+      Workspace para el archivo dockerconfigjson
+    optional: true
   tasks:
   # Task Git clone que recibe los parametros de url y revision ( branch )
   - name: clone
@@ -91,8 +92,8 @@ spec:
     workspaces:
     - name: source
       workspace: workspace-git
-    # - name: dockerconfig
-    #   workspace: dockerconfig-ws
+    - name: dockerconfig
+      workspace: dockerconfig-ws
     params:
     - name: IMAGE
       value: $(params.img-registry)
