@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: pipelinerun-ci-openapi-
+spec:
+  pipelineRef:
+    name: pipeline-ci-openapi
+  workspaces:
+  - name: workspace-git
+    persistentVolumeClaim:
+      claimName: pvc-git-pipeline
+  params:
+  - name: repo-url
+    value: https://gitea.apps.cluster-6j5fd.sandbox1230.opentlc.com/xpk/openapi.git
+  - name: img-registry
+    value: image-registry.openshift-image-registry.svc:5000/cie/openapi:latest
+  - name: img-context
+    value: ./
+  - name: img-dockerfile
+    value: Containerfile
