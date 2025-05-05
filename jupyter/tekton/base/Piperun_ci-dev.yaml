@@ -12,7 +12,6 @@ spec:
   - name: dockerconfig-ws
     secret:
       secretName: dockerconfig-secret
-  - name: docker
   params:
   - name: repo-url
     value: https://github.com/Carlos-ZRM/openshift-app.git
