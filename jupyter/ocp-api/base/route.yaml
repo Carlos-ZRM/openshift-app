@@ -12,7 +12,7 @@ spec:
     name: api
     weight: 100
   port:
-    targetPort: api-8080
+    targetPort: api-5000
   tls:
     termination: edge
   wildcardPolicy: None
