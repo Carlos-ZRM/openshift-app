@@ -36,26 +36,46 @@ spec:
     # taskRef:
     #   kind: ClusterTask
     #   name: git-clone
+    params:
+          - name: url
+            value: $(params.repo-url)
+          - name: revision
+            value: main
+          - name: refspec
+            value: ''
+          - name: submodules
+            value: 'true'
+          - name: depth
+            value: '1'
+          - name: sslVerify
+            value: 'true'
+          - name: crtFileName
+            value: ca-bundle.crt
+          - name: subdirectory
+            value: ''
+          - name: sparseCheckoutDirectories
+            value: ''
+          - name: deleteExisting
+            value: 'true'
+          - name: httpProxy
+            value: ''
+          - name: httpsProxy
+            value: ''
+          - name: noProxy
+            value: ''
+          - name: verbose
+            value: 'true'
+          - name: gitInitImage
+            value: 'gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.40.2'
+          - name: userHome
+            value: /home/git
     taskRef:
-      resolver: hub
-      params:
-        - name: kind
-          value: task
-        - name: name
-          value: git-clone
-        - name: version
-          value: "0.9"
+          kind: Task
+          name: git-clone
     workspaces:
     - name: output
       workspace: workspace-git
-    params:
-    - name: url
-      value: $(params.repo-url)
-    - name: revision
-      value: HEAD
-      #value: $(params.revision)
 
-  
   - name: buildah-bud
     taskRef:
       resolver: hub

@@ -2,7 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: api-dev
 resources:
-- 01-PVC.yaml
+- 01-PVC-prod.yaml
+- 01-PVC-dev.yaml
 - 02-Pipeline-api.yaml
 - 03-CRB-Pipe-privileged.yaml
 - 04-imagestream.yaml
@@ -10,6 +11,7 @@ resources:
 - 06-Triggerbinding.yaml
 - 07-Eventlistener.yaml
 - 08-Rutatrigger.yaml
+- 09-Secret-dockerconfig-quay.yaml
 
 commonLabels:
   pipeline: build-api

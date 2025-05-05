@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: pipeline-ci-api-dev-
+spec:
+  pipelineRef:
+    name: pipeline-ci-api
+  workspaces:
+  - name: workspace-git
+    persistentVolumeClaim:
+      claimName: pvc-git-api-dev
+  params:
+  - name: repo-url
+    value: https://github.com/Carlos-ZRM/openshift-app.git
+  - name: img-registry
+    #value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/api:latest
+    value: quay-registry-quay-openshift-operators.apps.cluster-r8f27.r8f27.sandbox470.opentlc.com/creyesma/api-demo:dev
+  - name: img-context
+    value: python/openapi
+  - name: img-dockerfile
+    value: Containerfile
+  - name: revision
+    value: dev
