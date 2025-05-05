@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../helm-code"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}
