@@ -7,11 +7,20 @@ resources:
 - route.yaml
 
 secretGenerator:
-- name: quay-secret
+- name: quay-pull-secret
   files:
    - .dockerconfigjson=dockerconfigjson
   type: "kubernetes.io/dockerconfigjson"
 
+patches:
+  - patch: |-
+      - op: add
+        path: /imagePullSecrets/-
+        value:
+          name: quay-pull-secret
+    target:
+      kind: ServiceAccount
+      name: default
 
 commonLabels:
   app: api-default
