@@ -1,4 +1,4 @@
-FROM registry.redhat.io/rhel9/python-311@sha256:37dd30f6013d1cc6c14383486f5fbcf805aae67cf243ca842a216b2cde7f02de 
+FROM registry.access.redhat.com/ubi9/python-311@sha256:37dd30f6013d1cc6c14383486f5fbcf805aae67cf243ca842a216b2cde7f02de
 
 USER 0
 COPY src .
