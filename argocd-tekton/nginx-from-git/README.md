@@ -7,5 +7,5 @@ cp values.yaml myvalues.yaml
 ## Install Chart into specific namespace
 
 ~~~ bash
-helm install pipe-clone --values myvalues.yaml .
+helm install appweb --values myvalues.yaml .
 ~~~
