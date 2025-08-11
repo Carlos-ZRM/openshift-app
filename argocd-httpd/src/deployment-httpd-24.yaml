@@ -28,7 +28,11 @@ spec:
               protocol: TCP
             - containerPort: 8443
               protocol: TCP
-          resources: {}
+          resources:
+            limits:
+              cpu: '200'
+            requests:
+              cpu: '100'
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: IfNotPresent
