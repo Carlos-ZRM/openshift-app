@@ -50,6 +50,6 @@ patches:
 images:
 - name: api:default
   newTag: api-dev
-- name: api:dev
+- name: api:default
   newName: quay.io/rh-ee-creyesma/tekton-demo
 
