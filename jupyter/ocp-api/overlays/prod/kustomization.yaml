@@ -48,9 +48,8 @@ patches:
       kind: Route
       labelSelector: "app=api"
 images:
-- name: api:default
-  newTag: prod
-- name: api:prod
-  newName: quay-registry-quay-openshift-operators.apps.cluster-r8f27.r8f27.sandbox470.opentlc.com/creyesma/api-demo
+- name: api
+  newName: image-registry.openshift-image-registry.svc:5000/xpk/python-api-3-11
+  newTag: latest
 
 
