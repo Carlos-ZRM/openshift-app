@@ -48,8 +48,7 @@ patches:
       kind: Route
       labelSelector: "app=api"
 images:
-- name: api:default
-  newTag: api-dev
-- name: api:default
+- name: api
   newName: quay.io/rh-ee-creyesma/tekton-demo
+  newTag: api-dev
 
