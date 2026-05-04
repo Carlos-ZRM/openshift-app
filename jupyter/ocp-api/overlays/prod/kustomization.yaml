@@ -49,7 +49,7 @@ patches:
       labelSelector: "app=api"
 images:
 - name: api
-  newName: image-registry.openshift-image-registry.svc:5000/xpk/python-api-3-11
+  newName: image-registry.openshift-image-registry.svc:5000/xpk/python-api-3-12
   newTag: latest
 
 
