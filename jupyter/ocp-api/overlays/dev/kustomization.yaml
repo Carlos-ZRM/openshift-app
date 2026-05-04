@@ -49,6 +49,6 @@ patches:
       labelSelector: "app=api"
 images:
 - name: api
-  newName: quay.io/rh-ee-creyesma/tekton-demo
-  newTag: api-dev
+  newName: image-registry.openshift-image-registry.svc:5000/xpk/python-api-3-11
+  newTag: latest
 
