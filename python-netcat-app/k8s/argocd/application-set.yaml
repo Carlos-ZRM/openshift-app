@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: net-cat-app
+  namespace: openshift-gitops
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+      repoURL: 'https://github.com/Carlos-ZRM/openshift-app.git'
+      revision: main
+      directories:
+        path: 'python-netcat-app/k8s/kustomize/*/overlays/*'
+  template:
+    metadata:
+      name: mongodb-{{.env}}
+      namespace: openshift-gitops
+    spec:
+      project: default
+      sources:
+        - repoURL: 'https://github.com/Carlos-ZRM/openshift-app.git'
+          path: "{{.repo_path}}"
+          targetRevision: main
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: mongodb-{{.env}}
+      syncPolicy:
+        automated:
+          prune: true        # elimina recursos que ya no están en Git
+          selfHeal: true     # corrige cambios manuales fuera de Git
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true

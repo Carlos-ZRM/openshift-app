@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../base
+
+nameSuffix: -py-3-11
+commonLabels:
+  langauge: python-3-11
+
+patches:
+- target:
+    kind: BuildConfig
+    name: bc-netcat
+  patch: |-
+    - op: replace
+      path: /spec/strategy/dockerStrategy/buildArgs
+      value:
+        - name: BASE_IMAGE
+          value: "registry.access.redhat.com/ubi9/python-311:1-1777569679"
+    - op: replace
+      path: /spec/output/to/name
+      value: test-netcat:python3-11

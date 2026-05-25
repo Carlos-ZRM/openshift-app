@@ -1,0 +1,32 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: bc-netcat
+  namespace: xpk
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/Carlos-ZRM/openshift-app.git
+      ref: main
+    contextDir: /python-netcat-app
+  strategy:
+    type: Docker               # or Source
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      buildArgs:
+        - name: BASE_IMAGE
+          value: "registry.access.redhat.com/ubi9/python-311:latest"
+        - name: APP_VERSION
+          value: "3.1.4"
+  output:
+    to:
+      kind: ImageStreamTag
+      name: test-netcat:latest
+  triggers:
+  - github:
+      secret: 6lKqfBsLMuSNVxZ48sEz
+    type: GitHub
+  - generic:
+      secret: IMBa22Yw8JK-s_nWE7Kr
+    type: Generic
