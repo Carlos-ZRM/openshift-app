@@ -20,4 +20,4 @@ patches:
           value: "registry.access.redhat.com/ubi9/python-311:1-1777569679"
     - op: replace
       path: /spec/output/to/name
-      value: test-netcat:python3-11
+      value: test-netcat-py-3-11:latest
