@@ -10,21 +10,23 @@ spec:
     - git:
         repoURL: 'https://github.com/Carlos-ZRM/openshift-app.git'
         revision: main
-        files:
-          - path: 'python-netcat-app/k8s/kustomize/*/overlays/*/config.json'
+        directories:
+          - path: 'python-netcat-app/k8s/kustomize/*/overlays/*'
+          - path: 'python-netcat-app/k8s/kustomize/*/base'
+            exclude: true
   template:
     metadata:
-      name: '{{.name}}'
+      name: '{{index (splitList "/" .path.path) 3}}-{{index (splitList "/" .path.path) 5}}'
       namespace: openshift-gitops
     spec:
       project: default
       sources:
         - repoURL: 'https://github.com/Carlos-ZRM/openshift-app.git'
-          path: path: '{{.path.path}}'
+          path: '{{.path.path}}'
           targetRevision: main
       destination:
         server: "https://kubernetes.default.svc"
-        namespace: '{{.namespace}}'
+        namespace: '{{index (splitList "/" .path.path) 3}}-{{index (splitList "/" .path.path) 5}}'
       syncPolicy:
         automated:
           prune: true
