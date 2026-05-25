@@ -1,0 +1,26 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: python-netcat-app
+  labels:
+    app: python-netcat-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-netcat-app
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: test-netcat-py-3-12
+        deployment: test-netcat-py-3-12
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+    spec:
+      containers:
+        - name: test-netcat-py-3-12
+          image: 'image-registry.openshift-image-registry.svc:5000/test-netcat/test-netcat:latest'
+          ports:
+            - containerPort: 5000
+              protocol: TCP
