@@ -3,3 +3,8 @@ kind: Kustomization
 
 resources:
 - ../../base
+
+images:
+- name: 'image-registry.openshift-image-registry.svc:5000/ns/test-netcat:latest'
+  newName: 'image-registry.openshift-image-registry.svc:5000/test-netcat/test-netcat-py-3-11'
+  newTag: 'latest'
