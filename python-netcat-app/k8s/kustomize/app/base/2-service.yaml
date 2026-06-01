@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-netcat-app
+spec:
+  selector:
+    app: test-netcat
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
