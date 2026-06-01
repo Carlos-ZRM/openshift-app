@@ -5,3 +5,7 @@ resources:
 - 1-deployment.yaml
 - 2-service.yaml
 - 3-route.yaml
+
+
+components:
+- ../components

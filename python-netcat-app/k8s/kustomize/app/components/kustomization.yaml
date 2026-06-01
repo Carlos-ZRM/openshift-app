@@ -1,0 +1,18 @@
+# components/db-proxy/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+configMapGenerator:
+- name: global-python-env
+  envs:
+  - 01-config.env
+
+patches:
+  - target:
+      kind: Deployment
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/envFrom
+        value:
+          - configMapRef:
+              name: global-python-env

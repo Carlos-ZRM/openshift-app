@@ -1,4 +1,4 @@
 {
-  "name": "app-prod-312",
-  "namespace": "test-netcat"
+  "name": "app-dev-312",
+  "namespace": "dev-netcat"
 }
