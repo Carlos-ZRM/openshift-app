@@ -4,7 +4,6 @@ kind: RoleBinding
 metadata:
   creationTimestamp: null
   name: system:image-puller
-  namespace: test-netcat
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -13,6 +12,3 @@ subjects:
 - kind: ServiceAccount
   name: default
   namespace: dev-netcat
-- kind: ServiceAccount
-  name: default
-  namespace: prod-netcat

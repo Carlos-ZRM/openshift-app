@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - 0-image-stream.yaml
 - 1-build-config.yaml
+- 2-pull-image-from-ns.yaml
