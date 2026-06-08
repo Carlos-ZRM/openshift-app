@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: system:image-puller
+  name: image-puller-default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -11,4 +11,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: dev-netcat
+  namespace: default-netcat
