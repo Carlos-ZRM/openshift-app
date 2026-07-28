@@ -54,7 +54,7 @@ HTML_TEMPLATE = """
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Roboto:wght@400;500&display=swap');
 
         :root {
-            --bg-color: #1a1b26;
+            --bg-color: {{ bg_color or '#1a1b26' }};
             --fg-color: #a9b1d6;
             --card-color: #24283b;
             --border-color: #414868;
@@ -343,6 +343,16 @@ HTML_TEMPLATE = """
 </html>
 """
 
+def get_bg_color():
+    """
+    Reads HEX_BACKGROUND env variable and returns a validated hex color string.
+    Returns None if unset or invalid.
+    """
+    raw = os.getenv('HEX_BACKGROUND', '').strip()
+    if raw and re.match(r'^#[0-9A-Fa-f]{3}(?:[0-9A-Fa-f]{3})?$', raw):
+        return raw
+    return None
+
 def get_k8s_info():
     """
     Retrieves Kubernetes metadata from environment variables.
@@ -439,6 +449,7 @@ def index():
     Main route to display the forms and handle submissions.
     """
     k8s_info = get_k8s_info()
+    bg_color = get_bg_color()
     active_tab = 'netcat'
     result = None
     error = False
@@ -453,8 +464,9 @@ def index():
             active_tab = 'curl'
             result, error = handle_curl_request(form_data)
 
-    return render_template_string(HTML_TEMPLATE, 
+    return render_template_string(HTML_TEMPLATE,
                                   k8s_info=k8s_info,
+                                  bg_color=bg_color,
                                   active_tab=active_tab,
                                   result=result,
                                   error=error,
