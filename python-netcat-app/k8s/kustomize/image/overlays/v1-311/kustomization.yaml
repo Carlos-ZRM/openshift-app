@@ -23,7 +23,7 @@ patches:
       value: test-netcat-py-3-11:latest
 - target:
     kind: RoleBinding
-    name: image-puller
+    name: image-puller-default
   patch: |-
     - op: replace
       path: /metadata/name
