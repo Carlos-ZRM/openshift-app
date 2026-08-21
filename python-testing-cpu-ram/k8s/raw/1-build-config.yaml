@@ -1,0 +1,31 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: bc-test-resources
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/Carlos-ZRM/openshift-app.git
+      ref: main
+    contextDir: /python-testing-cpu-ram
+  strategy:
+    type: Docker               # or Source
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      buildArgs:
+        - name: BASE_IMAGE
+          value: "registry.access.redhat.com/ubi9/python-312:latest"
+        - name: APP_VERSION
+          value: "v0.1.0"
+  output:
+    to:
+      kind: ImageStreamTag
+      name: test-resources:latest
+  triggers:
+  - github:
+      secret: 6lKqfBsLMuSNVxZ48sEz
+    type: GitHub
+  - generic:
+      secret: IMBa22Yw8JK-s_nWE7Kr
+    type: Generic

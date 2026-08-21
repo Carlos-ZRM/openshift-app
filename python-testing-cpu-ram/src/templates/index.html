@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Performance Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-glow: #00f6ff;
+            --secondary-glow: #ff00c1;
+            --tertiary-glow: #7cff00;
+            --yellow-glow: #ffe066;
+            --purple-glow: #b266ff;
+            --dark-bg: #0a0a1a;
+            --light-bg: #1a1a3a;
+            --text-color: #e0e0ff;
+        }
+
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow); }
+            50%  { box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow); }
+            100% { box-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow); }
+        }
+
+        @keyframes text-flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                    0 0 4px #fff,
+                    0 0 11px var(--secondary-glow),
+                    0 0 19px var(--secondary-glow),
+                    0 0 40px var(--primary-glow),
+                    0 0 80px var(--primary-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image:
+                linear-gradient(var(--light-bg) 1px, transparent 1px),
+                linear-gradient(90deg, var(--light-bg) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 10, 26, 0.8);
+            border: 1px solid var(--primary-glow);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 246, 255, 0.5);
+            backdrop-filter: blur(5px);
+            max-width: 95%;
+            width: 650px;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            animation: text-flicker 3s linear infinite;
+        }
+
+        p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            color: var(--text-color);
+        }
+
+        .test-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--light-bg);
+            border: 1px solid var(--primary-glow);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 15px var(--secondary-glow);
+            border-color: var(--secondary-glow);
+        }
+
+        .card h2 {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-glow);
+            transition: color 0.3s ease;
+        }
+
+        .card:hover h2 { color: var(--secondary-glow); }
+
+        /* Health card variant */
+        .card--health { border-color: var(--tertiary-glow); }
+        .card--health h2 { color: var(--tertiary-glow); }
+        .card--health:hover { box-shadow: 0 0 15px var(--tertiary-glow); border-color: var(--tertiary-glow); }
+        .card--health:hover h2 { color: var(--secondary-glow); }
+
+        /* Random-sleep card variant */
+        .card--random { border-color: var(--yellow-glow); }
+        .card--random h2 { color: var(--yellow-glow); }
+        .card--random:hover { box-shadow: 0 0 15px var(--yellow-glow); border-color: var(--yellow-glow); }
+        .card--random:hover h2 { color: var(--secondary-glow); }
+
+        /* Payload card variant */
+        .card--payload { border-color: var(--purple-glow); }
+        .card--payload h2 { color: var(--purple-glow); }
+        .card--payload:hover { box-shadow: 0 0 15px var(--purple-glow); border-color: var(--purple-glow); }
+        .card--payload:hover h2 { color: var(--secondary-glow); }
+
+        .card p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            text-decoration: none;
+            color: var(--dark-bg);
+            background-color: var(--primary-glow);
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 8px var(--primary-glow);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-glow);
+            box-shadow: 0 0 20px var(--secondary-glow);
+            color: #fff;
+        }
+
+        .btn--health {
+            background-color: var(--tertiary-glow);
+            box-shadow: 0 0 8px var(--tertiary-glow);
+        }
+
+        .btn--random {
+            background-color: var(--yellow-glow);
+            box-shadow: 0 0 8px var(--yellow-glow);
+        }
+
+        .btn--payload {
+            background-color: var(--purple-glow);
+            box-shadow: 0 0 8px var(--purple-glow);
+            cursor: default;
+        }
+
+        /* env badge shown at bottom */
+        .env-badge {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(224, 224, 255, 0.5);
+            letter-spacing: 0.05em;
+        }
+
+        .env-badge span {
+            color: var(--primary-glow);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PERFORMANCE HUB</h1>
+        <p>Select a diagnostic to initiate system stress test protocols.</p>
+
+        <div class="test-cards">
+
+            <div class="card">
+                <h2>CPU DIAGNOSTIC</h2>
+                <p>Initiates a computationally intensive task by calculating prime numbers to benchmark processor speed.</p>
+                <a href="/cputest" class="btn" target="_blank">Initiate CPU Test</a>
+            </div>
+
+            <div class="card">
+                <h2>MEMORY ALLOCATION TEST</h2>
+                <p>Allocates a significant block of memory to test RAM capacity and performance under load.</p>
+                <a href="/ramtest" class="btn" target="_blank">Initiate RAM Test</a>
+            </div>
+
+            <div class="card card--health">
+                <h2>HEALTH CHECK / SLEEP TEST</h2>
+                <p>Returns 200 OK after waiting for the fixed duration set by the <code>SLEEP_TEST</code> environment variable.</p>
+                <a href="/healthz" class="btn btn--health" target="_blank">Initiate Health Check</a>
+            </div>
+
+            <div class="card card--random">
+                <h2>RANDOM SLEEP HEALTH CHECK</h2>
+                <p>
+                    Waits a random duration between
+                    <strong>SLEEP_TEST &times; 0.5</strong> and <strong>SLEEP_TEST &times; 1.5</strong> seconds before responding.
+                    Current base: <span style="color:var(--yellow-glow)">{{ sleep_test }}s</span>
+                    &rarr; range <strong>{{ sleep_min }}s &ndash; {{ sleep_max }}s</strong>.
+                </p>
+                <a href="/healthz-random" class="btn btn--random" target="_blank">Initiate Random Check</a>
+            </div>
+
+            <div class="card card--payload">
+                <h2>PAYLOAD UPLOAD</h2>
+                <p>
+                    <code>POST /payload</code> with <code>multipart/form-data</code> field <em>file</em>.
+                    Saves the file under <code>./payloads/</code> and returns size &amp; request time.
+                </p>
+                <span class="btn btn--payload">POST /payload</span>
+            </div>
+
+        </div>
+
+        <div class="env-badge">
+            SLEEP_TEST = <span>{{ sleep_test }}s</span>
+        </div>
+    </div>
+</body>
+</html>

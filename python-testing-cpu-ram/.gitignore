@@ -1,0 +1,104 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+htmlcov/
+.hypothesis/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# dotenv
+.env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Kubernetes ────────────────────────────────────────────────────────────────
+# Local kubeconfig overrides
+kubeconfig
+*.kubeconfig
+.kube/
+
+# Generated manifests / kustomize output
+*-generated.yaml
+*-generated.yml
+kustomize-output/
+
+# Secrets / sensitive manifests
+*secret*.yaml
+*secret*.yml
+*secrets*.yaml
+*secrets*.yml
+
+# ── Helm ──────────────────────────────────────────────────────────────────────
+# Rendered chart output
+*.tgz
+charts/*.tgz
+
+# Helm dependency lock
+Chart.lock
+
+# Helm debug output / rendered templates
+output/
+rendered/
+helm-output/
+
+# values overrides with secrets
+values.local.yaml
+values.local.yml
+values-secret*.yaml
+values-secret*.yml
+
+# ── Payloads (app-specific) ───────────────────────────────────────────────────
+payloads/
+src/payloads/
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
