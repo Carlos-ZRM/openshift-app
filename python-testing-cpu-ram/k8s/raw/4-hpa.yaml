@@ -6,6 +6,9 @@ metadata:
     app: app-base-test
     app.kubernetes.io/component: app-base-test
     app.kubernetes.io/instance: app-base-test
+  annotations:
+    autoscaling.cast.ai/hpa-managed: workload-autoscaler
+    autoscaling.cast.ai/hpa-revert-configuration: '{"hpaSpec":{"scaleTargetRef":{"kind":"Deployment","name":"app-base-test","apiVersion":"apps/v1"},"minReplicas":1,"maxReplicas":5,"metrics":[{"type":"Resource","resource":{"name":"memory","target":{"type":"Utilization","averageUtilization":80}}}]},"ownerReference":null}'
 spec:
   behavior:
     scaleDown:

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-cpu-ram-raw
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: test-cpu-ram
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: python-testing-cpu-ram/k8s/raw/
+    repoURL: https://github.com/Carlos-ZRM/openshift-app.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+  ignoreDifferences:
+  - group: route.openshift.io
+    kind: Route
+    jsonPointers:
+    - /spec/host

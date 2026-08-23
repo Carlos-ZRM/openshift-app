@@ -28,7 +28,7 @@ spec:
       - env:
         - name: SLEEP_TEST
           value: "5"
-        image: image-registry.openshift-image-registry.svc:5000/xpk/app-base-test@sha256:e854f416147fd576832bcc25ad78ee8b364e29cfe03d90551109ae96cb0582b9
+        image: image-registry.openshift-image-registry.svc:5000/test-cpu-ram/test-resources:latest
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4

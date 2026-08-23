@@ -32,14 +32,12 @@ oc new-app image-registry.openshift-image-registry.svc:5000/java/copy
 oc expose service/copy
 oc get route
 
-curl http://copy-java.apps.shrocp4upi414ovn.lab.upshift.rdu2.redhat.com
 ~~~
-{
-  "code": 200,
-  "filename": "README_20260820_232551.md",
-  "original_filename": "README.md",
-  "payload_size_bytes": 510,
-  "request_time_seconds": 0.0018,
-  "saved_to": "/opt/app-root/src/./payloads/README_20260820_232551.md"
-}
+
+## Test
+
+~~~ bash
+
 curl -X POST https://route-app-base-test-xpk.apps.cluster-vxwxt.dyn.redhatworkshops.io/payload  -F "file=@./README.md"
+
+~~~

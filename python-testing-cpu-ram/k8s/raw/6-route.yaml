@@ -13,3 +13,6 @@ spec:
     name: app-base-test
     weight: 100
   wildcardPolicy: None
+  tls: {}
+  port:
+    targetPort: 5000-tcp
