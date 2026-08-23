@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from": {"kind":"ImageStreamTag","name":"test-resources:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"app-base-test\")].image"}]'
   labels:
     app: app-base-test
     app.kubernetes.io/component: app-base-test
@@ -19,8 +21,6 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      annotations:
-        openshift.io/generated-by: OpenShiftNewApp
       labels:
         deployment: app-base-test
     spec:
