@@ -19,6 +19,7 @@ spec:
     syncOptions:
     - CreateNamespace=true
     - ApplyOutOfSyncOnly=true
+    - RespectIgnoreDifferences=true
     retry:
       limit: 5
   ignoreDifferences:
@@ -26,3 +27,12 @@ spec:
     kind: Route
     jsonPointers:
     - /spec/host
+  - group: autoscaling
+    kind: HorizontalPodAutoscaler
+    #jsonPointers:
+    #  - /spec/maxReplicas
+    #  - /spec/minReplicas
+    #  - /spec/metrics
+    jqPathExpressions:
+      - . | select(.metadata.annotations["autoscaling.cast.ai/hpa-managed"] != null) | .spec.minReplicas
+      - . | select(.metadata.annotations["autoscaling.cast.ai/hpa-managed"] != null) | .spec.maxReplicas
