@@ -2,6 +2,10 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: bc-test-resources
+  labels:
+    app: app-base-test
+    app.kubernetes.io/component: app-base-test
+    app.kubernetes.io/instance: app-base-test
 spec:
   source:
     type: Git

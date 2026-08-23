@@ -1,23 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "19"
-    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"app-base-test:latest","namespace":"xpk"},"fieldPath":"spec.template.spec.containers[?(@.name==\"app-base-test\")].image","paused":false}]'
-    openshift.io/generated-by: OpenShiftNewApp
-  creationTimestamp: "2026-08-20T17:42:19Z"
-  generation: 27
   labels:
     app: app-base-test
     app.kubernetes.io/component: app-base-test
     app.kubernetes.io/instance: app-base-test
   name: app-base-test
-  namespace: xpk
-  resourceVersion: "2192732"
-  uid: b519dc60-1648-46ca-8f70-ab43eee7d4d8
 spec:
   progressDeadlineSeconds: 600
-  replicas: 5
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -94,23 +84,3 @@ spec:
       - name: payload
         persistentVolumeClaim:
           claimName: payload
-status:
-  availableReplicas: 4
-  conditions:
-  - lastTransitionTime: "2026-08-20T17:42:19Z"
-    lastUpdateTime: "2026-08-20T23:23:44Z"
-    message: ReplicaSet "app-base-test-5f567db8d4" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  - lastTransitionTime: "2026-08-20T23:32:06Z"
-    lastUpdateTime: "2026-08-20T23:32:06Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  observedGeneration: 27
-  readyReplicas: 4
-  replicas: 5
-  unavailableReplicas: 1
-  updatedReplicas: 5

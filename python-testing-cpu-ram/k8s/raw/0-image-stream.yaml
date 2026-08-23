@@ -2,4 +2,8 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   name: test-resources
+  labels:
+    app: app-base-test
+    app.kubernetes.io/component: app-base-test
+    app.kubernetes.io/instance: app-base-test
 

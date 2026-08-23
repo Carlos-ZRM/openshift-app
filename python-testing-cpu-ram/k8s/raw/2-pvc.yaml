@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: payload
+  labels:
+    app: app-base-test
+    app.kubernetes.io/component: app-base-test
+    app.kubernetes.io/instance: app-base-test
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ocs-external-storagecluster-cephfs
+  volumeMode: Filesystem
