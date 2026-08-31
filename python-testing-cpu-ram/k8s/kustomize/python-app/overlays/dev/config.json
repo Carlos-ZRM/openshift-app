@@ -1,23 +1,5 @@
 {
   "name": "test-cpu-ram-kustomize",
   "namespace": "test-cpu-ram-kustomize",
-  "castai_managed": true,
-  "syncPolicy": {
-    "automated": {
-      "prune": true,
-      "selfHeal": true
-    },
-    "syncOptions": [
-      "CreateNamespace=true",
-      "ApplyOutOfSyncOnly=true",
-      "RespectIgnoreDifferences=true"
-    ],
-    "retry": {
-      "limit": 5,
-      "backoff": {
-        "duration": "5s",
-        "factor": 2,
-        "maxDuration": "3m"
-      }
-    }
+  "castai_managed": true
 }
