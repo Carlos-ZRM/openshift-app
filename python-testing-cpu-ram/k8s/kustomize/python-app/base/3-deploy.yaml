@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from": {"kind":"ImageStreamTag","name":"is-app-base-test:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"app-base-test\")].image"}]'
+  labels:
+  name: app-base-test
+spec:
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      deployment: app-base-test
+  strategy:
+    rollingUpdate:
+      maxSurge: 75%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        deployment: app-base-test
+    spec:
+      containers:
+      - env:
+        - name: SLEEP_TEST
+          value: "5"
+        image: image-registry.openshift-image-registry.svc:5000/test-cpu-ram/is-app-base-test:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /healthz-random
+            port: 5000
+            scheme: HTTP
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: app-base-test
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz-random/0.85
+            port: 5000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2000Mi
+          requests:
+            cpu: 600m
+            memory: 200Mi
+        startupProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 5000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/app-root/src/payloads
+          name: payload
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: payload
+        persistentVolumeClaim:
+          claimName: payload

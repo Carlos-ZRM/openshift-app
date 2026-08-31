@@ -23,6 +23,10 @@ spec:
     retry:
       limit: 5
   ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/template/spec/containers/0/image
   - group: route.openshift.io
     kind: Route
     jsonPointers:

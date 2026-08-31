@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apset-test-cpu-ram-kustomize
+  namespace: openshift-gitops
+
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: 'https://github.com/Carlos-ZRM/openshift-app.git'
+        revision: main
+        files:
+          - path: 'python-testing-cpu-ram/k8s/kustomize/*/overlays/*/config.json'
+  template:
+    metadata:
+      name: '{{.name}}'
+      namespace: openshift-gitops
+    spec:
+      destination:
+        namespace: '{{.namespace}}'
+        server: https://kubernetes.default.svc
+      project: default
+      sources:
+        - path: "{{.path.path}}"
+        - repoURL: https://github.com/Carlos-ZRM/openshift-app.git
+        - targetRevision: HEAD
+      syncPolicy:
+        automated:
+          prune: {{ .syncPolicy.automated.prune }}
+          selfHeal: {{ .syncPolicy.automated.selfHeal }}
+        syncOptions: {{ .syncPolicy.syncOptions }}
+        retry:
+          limit: {{ .syncPolicy.retry.limit }}
+          backoff: {{ .syncPolicy.retry.backoff }}
+      ignoreDifferences:
+      - group: apps
+        kind: Deployment
+        jsonPointers:
+        - /spec/template/spec/containers/0/image
+      - group: route.openshift.io
+        kind: Route
+        jsonPointers:
+        - /spec/host
+      - group: autoscaling
+        kind: HorizontalPodAutoscaler
+        #jsonPointers:
+        #  - /spec/maxReplicas
+        #  - /spec/minReplicas
+        #  - /spec/metrics
+        jqPathExpressions:
+          - . | select(.metadata.annotations["autoscaling.cast.ai/hpa-managed"] != null) | .spec.minReplicas
+          - . | select(.metadata.annotations["autoscaling.cast.ai/hpa-managed"] != null) | .spec.maxReplicas

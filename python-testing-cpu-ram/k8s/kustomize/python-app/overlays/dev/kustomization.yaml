@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+
+
+patches:
+  - path: 1-dev-hpa.yaml
+    target:
+      kind: HorizontalPodAutoscaler
+      name: hpa-app-base-test
+
+
