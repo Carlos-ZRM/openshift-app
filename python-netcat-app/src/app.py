@@ -56,7 +56,7 @@ HTML_TEMPLATE = """
         :root {
             --bg-color: {{ bg_color or '#1a1b26' }};
             --fg-color: #a9b1d6;
-            --card-color: #24283b;
+            --card-color: {{ bg_color or '#24283b' }};
             --border-color: #414868;
             --accent-color: #7aa2f7;
             --success-color: #9ece6a;

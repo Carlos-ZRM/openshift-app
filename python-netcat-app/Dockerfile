@@ -27,10 +27,16 @@ WORKDIR ${APP_HOME}
 
 USER 0
 COPY src .
+
+COPY ca /etc/pki/ca-trust/source/anchors/
+
 RUN chown -R 1001:0 ./
 RUN yum install nmap -y \
     && yum clean all \
     && rm -rf /var/cache/yum
+
+RUN update-ca-trust extract
+
 USER 1001
 
 RUN pip install -r requirements.txt
