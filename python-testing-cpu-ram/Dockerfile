@@ -11,10 +11,8 @@ USER 0
 
 COPY src .
 
-COPY ca/ca.crt /etc/pki/ca-trust/source/anchors/custom-bundle.crt
-
-
-RUN update-ca-trust extract
+#COPY ca/ca.crt /etc/pki/ca-trust/source/anchors/custom-bundle.crt
+#RUN update-ca-trust extract
 
 RUN mkdir ./payloads
 
