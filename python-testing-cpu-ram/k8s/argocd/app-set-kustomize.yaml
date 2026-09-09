@@ -48,8 +48,17 @@ spec:
           kind: Route
           jsonPointers:
             - /spec/host
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/template/spec/containers/0/image
+        - group: route.openshift.io
+          kind: Route
+          jsonPointers:
+            - /spec/host
         - group: autoscaling
           kind: HorizontalPodAutoscaler
           jqPathExpressions:
-            - . | select(.metadata.annotations['autoscaling.cast.ai/hpa-managed'] != null) | .spec.minReplicas
-            - . | select(.metadata.annotations['autoscaling.cast.ai/hpa-managed'] != null) | .spec.maxReplicas
+            - '. | select(.metadata.annotations["autoscaling.cast.ai/hpa-managed"] != null) | .spec.minReplicas'
+            - '. | select(.metadata.annotations["autoscaling.cast.ai/hpa-managed"] != null) | .spec.maxReplicas'
