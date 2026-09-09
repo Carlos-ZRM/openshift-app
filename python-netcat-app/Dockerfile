@@ -28,7 +28,7 @@ WORKDIR ${APP_HOME}
 USER 0
 COPY src .
 
-COPY ca /etc/pki/ca-trust/source/anchors/
+COPY ca/ca.crt /etc/pki/ca-trust/source/anchors/custom-bundle.crt
 
 RUN chown -R 1001:0 ./
 RUN yum install nmap -y \
