@@ -82,5 +82,4 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
       - name: payload
-        persistentVolumeClaim:
-          claimName: payload
+        emptyDir: {}
