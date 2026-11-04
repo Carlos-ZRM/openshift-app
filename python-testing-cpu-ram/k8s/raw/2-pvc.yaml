@@ -12,5 +12,5 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ocs-external-storagecluster-cephfs
+  storageClassName: ""
   volumeMode: Filesystem
