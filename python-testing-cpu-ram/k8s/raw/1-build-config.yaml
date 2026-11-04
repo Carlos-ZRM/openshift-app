@@ -28,6 +28,8 @@ spec:
       #name: test-resources:latest
       kind: DockerImage
       name: quay.io/repository/rh-ee-creyesma/python-test-cpu-ram:latest
+      pushSecret:
+        name: quay-push'
   triggers:
   - github:
       secret: 6lKqfBsLMuSNVxZ48sEz
