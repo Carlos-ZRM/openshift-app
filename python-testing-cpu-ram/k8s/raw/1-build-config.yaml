@@ -24,8 +24,10 @@ spec:
           value: "v0.1.0"
   output:
     to:
-      kind: ImageStreamTag
-      name: test-resources:latest
+      #kind: ImageStreamTag
+      #name: test-resources:latest
+      kind: DockerImage
+      name: quay.io/repository/rh-ee-creyesma/python-test-cpu-ram:latest
   triggers:
   - github:
       secret: 6lKqfBsLMuSNVxZ48sEz
